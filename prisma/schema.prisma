@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Utilisatrice {
+  id       String    @id @default(cuid())
+  pseudo   String    @unique
+  email    String    @unique
+  password String
+  langue   String    @default("fr")
+  creeLe   DateTime  @default(now())
+  cycles   Cycle[]
+  journaux Journal[]
+}
+
+model Cycle {
+  id           String       @id @default(cuid())
+  utilisatrice Utilisatrice @relation(fields: [userId], references: [id])
+  userId       String
+  dateDebut    DateTime
+  dateFin      DateTime?
+  dureeJours   Int?
+  creeLe       DateTime     @default(now())
+}
+
+model Journal {
+  id           String       @id @default(cuid())
+  utilisatrice Utilisatrice @relation(fields: [userId], references: [id])
+  userId       String
+  date         DateTime
+  flux         String?
+  douleur      Int?
+  humeur       String?
+  energie      Int?
+  sommeil      Int?
+  noteLibre    String?
+  creeLe       DateTime     @default(now())
+}
