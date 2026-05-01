@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Navigation } from '@/components/navigation'
+import { Bot } from 'lucide-react'
 
 const conseils = [
   {
@@ -87,7 +88,7 @@ export default function ConseilsPage() {
 
         {/* Section chatbot */}
         <Card className="p-6 mt-8 bg-white border-[#C2185B]/20 text-center">
-          <h2 className="text-xl font-semibold text-[#C2185B] mb-3">🤖 Besoin d'aide personnalisée ?</h2>
+          <h2 className="text-xl font-semibold text-[#C2185B] mb-3 flex items-center justify-center gap-2"><Bot className="w-6 h-6" /> Besoin d'aide personnalisée ?</h2>
           <p className="text-gray-600 mb-4">
             Anoushka, notre assistante IA, peut répondre à tes questions spécifiques sur la santé féminine.
           </p>

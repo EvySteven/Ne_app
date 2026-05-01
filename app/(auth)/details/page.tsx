@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Navigation } from '@/components/navigation'
+import { Edit, BookOpen, Droplets, Waves, Battery, BatteryLow, Zap, Moon, HelpCircle } from 'lucide-react'
 
 interface JournalEntry {
   id: string
@@ -87,11 +88,11 @@ export default function DetailsPage() {
 
   const getFluxEmoji = (flux: string | null) => {
     switch (flux) {
-      case 'faible': return '💧'
-      case 'moyen': return '🌊'
-      case 'fort': return '🌊🌊'
-      case 'tres-fort': return '🌊🌊🌊'
-      default: return '❓'
+      case 'faible': return <Droplets className="w-4 h-4 text-blue-500" />
+      case 'moyen': return <Waves className="w-4 h-4 text-blue-600" />
+      case 'fort': return <div className="flex"><Waves className="w-4 h-4 text-blue-700" /><Waves className="w-4 h-4 text-blue-700 -ml-1" /></div>
+      case 'tres-fort': return <div className="flex"><Waves className="w-4 h-4 text-blue-800" /><Waves className="w-4 h-4 text-blue-800 -ml-1" /><Waves className="w-4 h-4 text-blue-800 -ml-1" /></div>
+      default: return <HelpCircle className="w-4 h-4 text-gray-400" />
     }
   }
 
@@ -104,11 +105,11 @@ export default function DetailsPage() {
   }
 
   const getEnergieEmoji = (energie: number | null) => {
-    if (!energie) return '❓'
-    if (energie >= 8) return '⚡'
-    if (energie >= 6) return '🔋'
-    if (energie >= 4) return '🪫'
-    return '😴'
+    if (!energie) return <HelpCircle className="w-4 h-4 text-gray-400" />
+    if (energie >= 8) return <Zap className="w-4 h-4 text-yellow-500" />
+    if (energie >= 6) return <Battery className="w-4 h-4 text-green-500" />
+    if (energie >= 4) return <BatteryLow className="w-4 h-4 text-orange-500" />
+    return <Moon className="w-4 h-4 text-purple-500" />
   }
 
   if (loading) {
@@ -129,7 +130,7 @@ export default function DetailsPage() {
         {/* Ajouter une entrée */}
         <Card className="p-6 mb-8 bg-white border-[#C2185B]/20">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-[#C2185B]">✍️ Ajouter une entrée</h2>
+            <h2 className="text-xl font-semibold text-[#C2185B] flex items-center gap-2"><Edit className="w-5 h-5" /> Ajouter une entrée</h2>
             <Button
               onClick={() => setShowAddEntry(!showAddEntry)}
               variant="outline"
@@ -239,7 +240,7 @@ export default function DetailsPage() {
 
         {/* Historique des entrées */}
         <Card className="p-6 bg-white border-[#C2185B]/20">
-          <h2 className="text-xl font-semibold text-[#C2185B] mb-4">📚 Mes entrées</h2>
+          <h2 className="text-xl font-semibold text-[#C2185B] mb-4 flex items-center gap-2"><BookOpen className="w-5 h-5" /> Mes entrées</h2>
           {entries.length === 0 ? (
             <p className="text-gray-600">Aucune entrée dans ton journal. Commence par en ajouter une !</p>
           ) : (

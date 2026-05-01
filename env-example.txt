@@ -1,0 +1,10 @@
+# Configuration de la base de données Supabase
+DATABASE_URL="postgresql://username:password@host:port/database"
+DIRECT_URL="postgresql://username:password@host:port/database"
+
+# Configuration NextAuth
+NEXTAUTH_SECRET="votre-secret-aleatoire-ici"
+NEXTAUTH_URL="http://localhost:3000"
+
+# Configuration Gemini API (optionnel pour le chatbot)
+GEMINI_API_KEY="votre-cle-api-gemini"

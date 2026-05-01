@@ -1,18 +1,19 @@
 // Fichier : app/api/cycles/route.ts
 
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@/lib/generated/prisma'
+import { prisma } from '@/lib/prisma'
 import { auth } from '@/auth'
 import { predire } from '@/lib/prediction'
-
-const prisma = new PrismaClient()
 
 // GET : Récupérer les cycles de l'utilisatrice et calculer les prédictions
 export async function GET() {
   try {
     const session = await auth()
     if (!session?.user?.id) {
-      return NextResponse.json({ erreur: 'Non autorisé' }, { status: 401 })
+      console.log('Session non trouvée ou utilisateur non authentifié')
+      return NextResponse.json({ 
+        erreur: 'Non autorisé - Veuillez vous reconnecter' 
+      }, { status: 401 })
     }
 
     const cycles = await prisma.cycle.findMany({

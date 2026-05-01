@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Navigation } from '@/components/navigation'
+import { Calendar } from 'lucide-react'
 
 interface Cycle {
   id: string
@@ -146,7 +147,7 @@ export default function CalendrierPage() {
       <div className="max-w-6xl mx-auto p-4">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-[#C2185B]">📅 Mon Calendrier</h1>
+          <h1 className="text-3xl font-bold text-[#C2185B] flex items-center gap-2"><Calendar className="w-8 h-8" /> Mon Calendrier</h1>
           <div className="flex items-center space-x-4">
             <Button
               onClick={() => navigateMonth('prev')}

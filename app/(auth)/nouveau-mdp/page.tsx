@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
+import { Sparkles, Heart } from 'lucide-react'
 
 const schema = z.object({
   code: z.string().min(6, 'Le code fait 6 chiffres').max(6, 'Le code fait 6 chiffres'),
@@ -46,7 +47,7 @@ export default function PageNouveauMdp() {
       <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
 
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-[#C2185B]">Né 🌸</h1>
+          <h1 className="text-4xl font-bold text-[#C2185B] flex items-center justify-center gap-2"><Sparkles className="w-8 h-8" /> Né</h1>
           <p className="text-gray-500 mt-2">Nouveau mot de passe</p>
         </div>
 
@@ -108,7 +109,7 @@ export default function PageNouveauMdp() {
             disabled={chargement}
             className="w-full bg-[#C2185B] text-white py-3 rounded-lg font-semibold hover:bg-[#7B1FA2] transition-colors disabled:opacity-50"
           >
-            {chargement ? 'Mise à jour...' : 'Changer mon mot de passe 💜'}
+            {chargement ? 'Mise à jour...' : 'Changer mon mot de passe'}
           </button>
 
         </form>

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
+import { Sparkles } from 'lucide-react'
 
 // Règles de validation
 const schema = z.object({
@@ -62,12 +63,6 @@ export default function PageInscription() {
     } finally {
       setChargement(false)
     }
-
-    } catch {
-      setErreurServeur('Problème de connexion. Vérifie ton internet.')
-    } finally {
-      setChargement(false)
-    }
   }
 
   return (
@@ -76,7 +71,7 @@ export default function PageInscription() {
 
         {/* Logo et titre */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-[#C2185B]">Né 🌸</h1>
+          <h1 className="text-4xl font-bold text-[#C2185B] flex items-center justify-center gap-2"><Sparkles className="w-8 h-8" /> Né</h1>
           <p className="text-gray-500 mt-2">Crée ton compte</p>
         </div>
 
@@ -165,7 +160,7 @@ export default function PageInscription() {
             disabled={chargement}
             className="w-full bg-[#C2185B] text-white py-3 rounded-lg font-semibold hover:bg-[#7B1FA2] transition-colors disabled:opacity-50 mt-2"
           >
-            {chargement ? 'Création en cours...' : "Créer mon compte 🌸"}
+            {chargement ? 'Création en cours...' : 'Créer mon compte'}
           </button>
 
         </form>

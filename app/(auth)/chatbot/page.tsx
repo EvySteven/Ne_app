@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Navigation } from '@/components/navigation'
+import { Lightbulb, AlertTriangle } from 'lucide-react'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -17,7 +18,7 @@ export default function ChatbotPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Salut ! Je suis Anoushka, ton assistante santé féminine. Je peux t\'aider à comprendre ton cycle menstruel, répondre à tes questions sur la santé féminine, ou te donner des conseils personnalisés. Comment puis-je t\'aider aujourd\'hui ? 🌸',
+      content: 'Salut ! Je suis Anoushka, ton assistante santé féminine. Je peux t\'aider à comprendre ton cycle menstruel, répondre à tes questions sur la santé féminine, ou te donner des conseils personnalisés. Comment puis-je t\'aider aujourd\'hui ?',
       timestamp: new Date()
     }
   ])
@@ -62,9 +63,10 @@ export default function ChatbotPage() {
 
       const data = await response.json()
 
+      // Toujours afficher la réponse, même si c'est une réponse par défaut
       const assistantMessage: Message = {
         role: 'assistant',
-        content: data.reponse,
+        content: data.reponse || 'Désolée, je n\'ai pas pu traiter ta demande. Essaie de reformuler ta question.',
         timestamp: new Date()
       }
 
@@ -151,7 +153,7 @@ export default function ChatbotPage() {
         {/* Suggestions */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card className="p-4 bg-white border-[#C2185B]/20">
-            <h3 className="font-semibold text-[#C2185B] mb-2">💡 Questions fréquentes</h3>
+            <h3 className="font-semibold text-[#C2185B] mb-2 flex items-center gap-2"><Lightbulb className="w-4 h-4" /> Questions fréquentes</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>• "Quand aurai-je mes prochaines règles ?"</li>
               <li>• "Comment calculer ma période fertile ?"</li>
@@ -160,7 +162,7 @@ export default function ChatbotPage() {
             </ul>
           </Card>
           <Card className="p-4 bg-white border-[#C2185B]/20">
-            <h3 className="font-semibold text-[#C2185B] mb-2">⚠️ Important</h3>
+            <h3 className="font-semibold text-[#C2185B] mb-2 flex items-center gap-2"><AlertTriangle className="w-4 h-4" /> Important</h3>
             <p className="text-sm text-gray-600">
               Je ne suis pas un médecin. Pour des problèmes de santé sérieux,
               consulte toujours un professionnel de santé qualifié.

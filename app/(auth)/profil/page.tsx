@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Navigation } from '@/components/navigation'
+import { Sparkles } from 'lucide-react'
 
 interface UserProfile {
   id: string
@@ -27,13 +28,40 @@ export default function ProfilPage() {
   })
 
   useEffect(() => {
+    console.log('Profile page - Status:', status)
+    console.log('Profile page - Session:', session?.user)
+    
     if (status === 'unauthenticated') {
+      console.log('Redirection vers connexion - utilisateur non authentifié')
       router.push('/connexion')
       return
     }
 
+    if (status === 'loading') {
+      console.log('Session en cours de chargement...')
+      return // Attendre que la session soit chargée
+    }
+
     if (session?.user) {
+      console.log('Session trouvée, chargement du profil...')
       fetchProfile()
+    } else if (status === 'authenticated' && !session?.user) {
+      // Session authentifiée mais données user manquantes
+      console.log('Session authentifiée mais données utilisateur incomplètes')
+      setLoading(false)
+    } else if (status === 'authenticated' && !loading && !profile) {
+      // Session OK mais profil pas chargé - afficher quand même
+      console.log('Session OK mais profil non initialisé, affichage par défaut')
+      setProfile({
+        id: session?.user?.id || 'inconnu',
+        email: session?.user?.email || 'email@exemple.com',
+        pseudo: session?.user?.name || 'Utilisateur',
+        createdAt: new Date().toISOString()
+      })
+      setFormData({
+        pseudo: session?.user?.name || 'Utilisateur',
+        email: session?.user?.email || 'email@exemple.com'
+      })
     }
   }, [session, status, router])
 
@@ -94,9 +122,7 @@ export default function ProfilPage() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-            Mon Profil 🌸
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center flex items-center justify-center gap-2"><Sparkles className="w-8 h-8 text-[#C2185B]" /> Mon Profil</h1>
 
           <div className="space-y-6">
             {/* Informations du profil */}

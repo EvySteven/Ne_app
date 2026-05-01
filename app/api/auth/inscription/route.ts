@@ -1,10 +1,8 @@
 // Fichier : app/api/auth/inscription/route.ts
 
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@/lib/generated/prisma'
+import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
-
-const prisma = new PrismaClient()
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     // 6. Répondre avec succès
     return NextResponse.json(
-      { message: `Bienvenue ${pseudo} ! Ton compte est prêt. 🌸`, id: nouvelle.id },
+      { message: `Bienvenue ${pseudo} ! Ton compte est prêt.`, id: nouvelle.id },
       { status: 201 }
     )
 
